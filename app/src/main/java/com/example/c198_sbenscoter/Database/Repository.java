@@ -30,8 +30,21 @@ public class Repository {
         mCourseDAO=db.courseDAO();
         mAssessmentDAO=db.assessmentDAO();
     }
+    public List<Term>getAllTerms(){
+        databaseExecutor.execute(()->{
+            mAllTerms=mTermDAO.getAllTerms();
+        });
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return mAllTerms;
+    }
     public void insert(Term term) {
-        databaseExecutor.execute(()->{mTermDAO.insertTerm(term);});
+
+        databaseExecutor.execute(()->{
+            mTermDAO.insertTerm(term);});
 
         try {
             Thread.sleep(1000);
@@ -40,4 +53,24 @@ public class Repository {
         }
     }
 
+    public void update(Term term) {
+        databaseExecutor.execute(()->{
+            mTermDAO.updateTerm(term);
+        });
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+    public void delete(Term term) {
+        databaseExecutor.execute(()->{
+            mTermDAO.deleteTerm(term);
+        });
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
 }

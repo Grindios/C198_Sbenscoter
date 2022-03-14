@@ -7,8 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.c198_sbenscoter.Database.Repository;
+import com.example.c198_sbenscoter.Entity.Term;
 import com.example.c198_sbenscoter.R;
+
+import java.util.List;
 
 public class TermList extends AppCompatActivity {
 
@@ -18,6 +24,13 @@ public class TermList extends AppCompatActivity {
         setContentView(R.layout.activity_terms);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        RecyclerView recyclerView=findViewById(R.id.recyclerview);
+        Repository repo = new Repository(getApplication());
+        List<Term> terms = repo.getAllTerms();
+        final TermAdapter adapter = new TermAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setTerms(terms);
     }
         //Menu
         public boolean onCreateOptionsMenu(Menu menu) {
